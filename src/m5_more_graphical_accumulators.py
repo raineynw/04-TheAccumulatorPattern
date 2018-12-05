@@ -27,8 +27,8 @@ import rosegraphics as rg
 # -----------------------------------------------------------------------------
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_draw_squares_from_circle()
-    run_test_draw_circles_from_rectangle()
+   # run_test_draw_squares_from_circle()
+    #run_test_draw_circles_from_rectangle()
     run_test_draw_lines_from_rectangles()
 
 
@@ -98,7 +98,7 @@ def draw_squares_from_circle(n, circle, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -111,6 +111,12 @@ def draw_squares_from_circle(n, circle, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ###########################################################################
     # -------------------------------------------------------------------------
+    jim = circle
+    jim.attach_to(window)
+    for k in range(n):
+        bob = rg.Square(rg.Point((k+30)*2,(k+15)*4),circle.radius*2)
+        bob.attach_to(window)
+        window.render()
 
 
 def run_test_draw_circles_from_rectangle():
@@ -122,7 +128,7 @@ def run_test_draw_circles_from_rectangle():
     print('--------------------------------------------------')
 
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement this TEST function.
+    # Done: 3. Implement this TEST function.
     #   It TESTS the  draw_circles_from_rectangle  function
     #   defined below.  Include at least **   3   ** tests, of which
     #      ***  at least TWO tests are on ONE window and
@@ -134,6 +140,33 @@ def run_test_draw_circles_from_rectangle():
     #   Follow the same form as the example in a previous problem.
     ###########################################################################
     # -------------------------------------------------------------------------
+    title = 'Tests 1 and 2 of DRAW_SQUARES_FROM_CIRCLE: '
+    title = title + ' 7 little squares from green circle, 4 big squares'
+    window4 = rg.RoseWindow(650, 350, title)
+
+    # Test 1:
+    rectangle = rg.Rectangle(rg.Point(100,140),rg.Point(140,120))
+    rectangle.fill_color = 'green'
+    draw_circles_from_rectangle(3,5,rectangle,window4)
+
+    # Test 2:
+    rectangle = rg.Rectangle(rg.Point(12,12),rg.Point(35,35))
+    draw_circles_from_rectangle(15,15,rectangle,window4)
+    window4.close_on_mouse_click()
+
+    # -------------------------------------------------------------------------
+    # A third test on ANOTHER window.
+    # -------------------------------------------------------------------------
+    title = 'Test 3 of DRAW_SQUARES_FROM_CIRCLE: '
+    title += ' 20 teeny squares from blue circle!'
+    window3 = rg.RoseWindow(525, 300, title)
+
+    # Test 3:
+    rectangle = rg.Rectangle(rg.Point(10,10),rg.Point(20,20))
+    rectangle.fill_color = 'blue'
+    draw_circles_from_rectangle(10,10,rectangle, window3)
+
+    window3.close_on_mouse_click()
 
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
@@ -176,7 +209,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # Done: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -189,6 +222,26 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ###########################################################################
     # -------------------------------------------------------------------------
+    height = rectangle.get_height()
+    width = rectangle.get_width()
+    center1 = rg.Point(rectangle.get_lower_left_corner().x-height/2, rectangle.get_lower_left_corner().y-height/2)
+    center2=rg.Point(rectangle.get_upper_left_corner().x+width/2,rectangle.get_upper_left_corner().y-width/2)
+    mid = rectangle.get_center()
+    rectangle.attach_to(window)
+    window.render()
+    for k in range(m):
+        logan = rg.Circle(rg.Point(center1.x-(k*height),center1.y),height/2)
+        logan.fill_color = 'blue'
+        logan.attach_to(window)
+    window.render()
+
+    for k in range (n):
+        james = rg.Circle(rg.Point(center2.x,center2.y-(k*width)),width/2)
+        james.fill_color = 'blue'
+        james.attach_to(window)
+    window.render()
+
+
 
 
 def run_test_draw_lines_from_rectangles():
@@ -268,7 +321,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type window: rg.RoseWindow
       """
     # -------------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # Done: 5. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -281,6 +334,21 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ###########################################################################
     # -------------------------------------------------------------------------
+    rectangle1.attach_to(window)
+    rectangle2.attach_to(window)
+    window.render()
+    start1 = rectangle1.get_center()
+    end1 = rectangle2.get_center()
+    ychange = rectangle1.get_height()/2
+    start2 = rectangle1.get_lower_left_corner()
+    end2 = rectangle2.get_lower_left_corner()
+    nelson = rg.Line(start1,end1)
+    nelson.attach_to(window)
+
+    for k in range(n):
+        kim = rg.Line(rg.Point(start2.x,start2.y+ychange*k),rg.Point(end2.x,end2.y+ychange*k))
+        kim.attach_to(window)
+    window.render()
 
 
 # -----------------------------------------------------------------------------
